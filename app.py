@@ -132,12 +132,17 @@ else:
                     Keep the response professional and concise.
                     """
 
-                    response = client.models.generate_content(
-                        model="gemini-3.1-flash-lite",
-                        contents=prompt
+                    response = client.chat.completions.create(
+                        model="llama-3.1-8b-instant",
+                        messages=[
+                            {
+                                "role": "user",
+                                "content": prompt
+                            }
+                        ]
                     )
 
-                    reply = response.text.strip()
+                    reply = response.choices[0].message.content.strip()
 
                     replies.append(reply)
                     time.sleep(1)
