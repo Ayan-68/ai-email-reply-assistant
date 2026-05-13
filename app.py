@@ -1,6 +1,7 @@
 from groq import Groq
 import pandas as pd
 import streamlit as st
+import time
 
 # Page config
 st.set_page_config(
@@ -77,7 +78,7 @@ if mode == "Single Message":
                     ]
                 )
 
-                reply = response.text.strip()
+                reply = response.choices[0].message.content.strip()
 
             st.success("✅ Reply Generated!")
 
@@ -139,6 +140,7 @@ else:
                     reply = response.text.strip()
 
                     replies.append(reply)
+                    time.sleep(1)
 
             df["ai_reply"] = replies
 
